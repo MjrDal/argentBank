@@ -1,0 +1,367 @@
+---
+openapi: 3.0.0
+info:
+  title: home-iot-api
+  description: The API for argent bank project
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/MJRDAL39_1/API_Argentbank/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: User Module
+  description: Access user
+- name: Transaction
+  description: Access transaction
+paths:
+  /user/login:
+    post:
+      tags:
+      - User Module
+      summary: Login
+      description: API for login
+      operationId: placeOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        "400":
+          description: Invalid field
+        "500":
+          description: internal server error
+  /user/signup:
+    post:
+      tags:
+      - User Module
+      summary: Signup
+      description: API for signup
+      operationId: signUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signup'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signupSuccess'
+        "400":
+          description: Invalid field
+        "500":
+          description: internal server error
+  /user/profile:
+    post:
+      tags:
+      - User Module
+      summary: User profile API
+      description: API for fetching user profile
+      operationId: profile
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signupSuccess'
+        "400":
+          description: Invalid field
+        "500":
+          description: internal server error
+      security:
+      - Bearer: []
+      x-codegen-request-body-name: body
+  /user/profiles:
+    put:
+      tags:
+      - User Module
+      summary: User profile API
+      description: API for fetching user profile
+      operationId: profilechange
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profile'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signupSuccess'
+        "400":
+          description: Invalid field
+        "500":
+          description: internal server error
+      security:
+      - Bearer: []
+      x-codegen-request-body-name: body
+  /bankaccount:
+    get:
+      tags:
+      - Transaction
+      summary: Bank account
+      description: API for transaction
+      operationId: getBankAccount
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+        "400":
+          description: Invalid field
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: internal server error
+      security:
+      - Bearer: []
+      x-codegen-request-body-name: body
+  /bankaccount/{bankaccountid}/transaction:
+    get:
+      tags:
+      - Transaction
+      summary: Transaction
+      description: API for transaction
+      operationId: getTransaction
+      parameters:
+      - name: bankaccountid
+        in: path
+        description: ID user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transactions'
+        "400":
+          description: Invalid field
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: internal server error
+      security:
+      - Bearer: []
+      x-codegen-request-body-name: body
+  /{bankaccountid}/transaction/{transactionid}:
+    put:
+      tags:
+      - Transaction
+      summary: User profile API
+      description: API for fetching user profile
+      operationId: categorychange
+      parameters:
+      - name: transactionid
+        in: path
+        description: ID user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: bankaccountid
+        in: path
+        description: ID bank account
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/category'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transaction'
+        "201":
+          description: created
+        "400":
+          description: Invalid field
+        "401":
+          description: Unauthorized
+        "500":
+          description: internal server error
+      security:
+      - Bearer: []
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: string
+        password:
+          type: string
+          example: string
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+          example: string
+    signup:
+      type: object
+      properties:
+        email:
+          type: string
+          example: string
+        password:
+          type: string
+          example: string
+        firstName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        userName:
+          type: string
+          example: string
+    signupSuccess:
+      type: object
+      properties:
+        status:
+          type: number
+          format: int64
+          example: 0
+        message:
+          type: string
+          example: string
+        body:
+          $ref: '#/components/schemas/signupSuccess_body'
+    profile:
+      type: object
+      properties:
+        userName:
+          type: string
+          example: string
+    transactions:
+      type: array
+      items:
+        $ref: '#/components/schemas/transactions_inner'
+    transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          example: string
+        date:
+          type: string
+          example: string
+        description:
+          type: string
+          example: string
+        amount:
+          type: number
+          format: int64
+          example: 8
+        transaction_type:
+          type: string
+          example: string
+        category:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+    account:
+      type: array
+      items:
+        $ref: '#/components/schemas/account_inner'
+    category:
+      type: object
+      properties:
+        category:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+    signupSuccess_body:
+      type: object
+      properties:
+        id:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+    transactions_inner:
+      type: object
+      properties:
+        id:
+          type: string
+          example: string
+        date:
+          type: string
+          example: string
+        description:
+          type: string
+          example: string
+        amount:
+          type: number
+          format: int64
+          example: 8
+        transaction_type:
+          type: string
+          example: string
+        category:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+    account_inner:
+      type: object
+      properties:
+        id:
+          type: string
+          example: string
+        title:
+          type: string
+          example: string
+        money:
+          type: string
+          example: string
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
