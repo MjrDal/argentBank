@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "../../features/login/loginSlice";
@@ -8,6 +8,7 @@ import "../../styles/style.css";
 
 export const Login = () => {
   const form = useRef();
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,8 +20,8 @@ export const Login = () => {
       password: form.current[1].value,
     };
 
-    FetchPostData("http://localhost:3001/api/v1/user/login", postData).then(
-      async (token) => {
+    FetchPostData("http://localhost:3001/api/v1/user/login", postData)
+      .then(async (token) => {
         await dispatch(setToken(token.body.token));
         FetchPostToken(
           "http://localhost:3001/api/v1/user/profile",
@@ -31,8 +32,10 @@ export const Login = () => {
 
         sessionStorage.setItem("token", token.body.token);
         navigate("/private/private-home");
-      }
-    );
+      })
+      .catch(() => {
+        setError(true);
+      });
   };
 
   return (
@@ -57,6 +60,11 @@ export const Login = () => {
             Sign In
           </button>
         </form>
+        {error ? (
+          <p className="errorMessage">
+            Nom d&apos;utilisateur ou mot de passe invalide
+          </p>
+        ) : null}
       </section>
     </main>
   );
