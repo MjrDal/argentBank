@@ -1,8 +1,30 @@
 import Chat from "../../assets/img/icon-chat.png";
 import Money from "../../assets/img/icon-money.png";
 import Security from "../../assets/img/icon-security.png";
+import Features from "../../components/Features/Features";
 
 export const Home = () => {
+  const data = [
+    {
+      title: "You are our #1 priority",
+      alt: "Chat Icon",
+      contend:
+        "Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.",
+    },
+    {
+      title: "More savings means higher rates",
+      alt: "money Icon",
+      contend:
+        "The more you save with us, the higher your interest rate will be!",
+    },
+    {
+      title: "Security you can trust",
+      alt: "security Icon",
+      contend:
+        "We use top of the line encryption to make sure your data and money is always safe.",
+    },
+  ];
+
   return (
     <main>
       <div className="hero">
@@ -16,31 +38,24 @@ export const Home = () => {
       </div>
       <section className="features">
         <h2 className="sr-only">Features</h2>
-        <div className="feature-item">
-          <img src={Chat} alt="Chat Icon" className="feature-icon" />
-          <h3 className="feature-item-title">You are our #1 priority</h3>
-          <p>
-            Need to talk to a representative? You can get in touch through our
-            24/7 chat or through a phone call in less than 5 minutes.
-          </p>
-        </div>
-        <div className="feature-item">
-          <img src={Money} alt="Chat Icon" className="feature-icon" />
-          <h3 className="feature-item-title">
-            More savings means higher rates
-          </h3>
-          <p>
-            The more you save with us, the higher your interest rate will be!
-          </p>
-        </div>
-        <div className="feature-item">
-          <img src={Security} alt="Chat Icon" className="feature-icon" />
-          <h3 className="feature-item-title">Security you can trust</h3>
-          <p>
-            We use top of the line encryption to make sure your data and money
-            is always safe.
-          </p>
-        </div>
+        <Features
+          image={Chat}
+          alt={data[0].alt}
+          title={data[0].title}
+          description={data[0].contend}
+        />
+        <Features
+          image={Money}
+          alt={data[1].alt}
+          title={data[1].title}
+          description={data[1].contend}
+        />
+        <Features
+          image={Security}
+          alt={data[2].alt}
+          title={data[2].title}
+          description={data[2].contend}
+        />
       </section>
     </main>
   );
