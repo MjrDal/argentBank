@@ -1,7 +1,7 @@
 import Chat from "../../assets/img/icon-chat.png";
 import Money from "../../assets/img/icon-money.png";
 import Security from "../../assets/img/icon-security.png";
-import Features from "../../components/Features/Features";
+import FeaturesHome from "../../components/Features/FeaturesHome";
 
 export const Home = () => {
   const data = [
@@ -38,19 +38,19 @@ export const Home = () => {
       </div>
       <section className="features">
         <h2 className="sr-only">Features</h2>
-        <Features
+        <FeaturesHome
           image={Chat}
           alt={data[0].alt}
           title={data[0].title}
           description={data[0].contend}
         />
-        <Features
+        <FeaturesHome
           image={Money}
           alt={data[1].alt}
           title={data[1].title}
           description={data[1].contend}
         />
-        <Features
+        <FeaturesHome
           image={Security}
           alt={data[2].alt}
           title={data[2].title}

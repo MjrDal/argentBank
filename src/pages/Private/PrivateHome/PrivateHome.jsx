@@ -1,10 +1,29 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import FeaturesAccount from "../../../components/Features/FeaturesAccount";
 import { setUser } from "../../../features/user/userSlice";
 import { FetchPutData } from "../../../services/db-services";
 import "../../../styles/style.css";
 
 export const PrivateHome = () => {
+  const data = [
+    {
+      title: "Argent Bank Checking (x8349)",
+      money: "$2,082.79",
+      description: "Available Balance",
+    },
+    {
+      title: "Argent Bank Savings (x6712))",
+      money: "$10,928.42",
+      description: "Available Balance",
+    },
+    {
+      title: "Argent Bank Credit Card (x8349)",
+      money: "$184.30",
+      description: "Available Balance",
+    },
+  ];
+
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState(false);
   const form = useRef();
@@ -97,36 +116,21 @@ export const PrivateHome = () => {
         </div>
       )}
       <h2 className="sr-only">Accounts</h2>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-          <p className="account-amount">$2,082.79</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-          <p className="account-amount">$10,928.42</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-          <p className="account-amount">$184.30</p>
-          <p className="account-amount-description">Current Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
+      <FeaturesAccount
+        title={data[0].title}
+        money={data[0].money}
+        description={data[0].description}
+      />
+      <FeaturesAccount
+        title={data[1].title}
+        money={data[1].money}
+        description={data[1].description}
+      />
+      <FeaturesAccount
+        title={data[2].title}
+        money={data[2].money}
+        description={data[2].description}
+      />
     </main>
   );
 };
