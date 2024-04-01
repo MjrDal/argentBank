@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import { setToken } from "../../features/login/loginSlice";
 import { setUser } from "../../features/user/userSlice";
@@ -7,9 +7,10 @@ import { FetchPostToken } from "../../services/db-services";
 
 export const Private = () => {
   const sessionToken = sessionStorage.getItem("token");
+  const token = useSelector((state) => state.token.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (sessionToken) {
+    if (sessionToken && !token) {
       FetchPostToken(
         "http://localhost:3001/api/v1/user/profile",
         sessionToken
